@@ -1,0 +1,403 @@
+<!doctype html>
+<!--
+  Public resume for GitHub Pages.
+  Public-version rules: no phone number; SRE employer named only as "global travel platform" (NDA).
+  Private/full version lives in the Claude Doc "Mukesh Sharma — Resume".
+-->
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mukesh Sharma · Resume</title>
+<meta name="description" content="Mukesh Sharma — MSP automation architect and founder of Xentek. White-label managed services and automation for MSPs: PSA/RMM integration, Microsoft 365, security operations, Azure, Kubernetes and SRE.">
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Mukesh Sharma — MSP Automation Architect">
+<meta property="og:description" content="Founder of Xentek. 130+ production automations, 165 Microsoft 365 tenants, SOC 2 Type 2. White-label automation and managed services for MSPs.">
+<meta name="theme-color" content="#0f4c81">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f4c81'/%3E%3Ctext x='32' y='42' font-family='Arial,Helvetica,sans-serif' font-size='26' font-weight='700' fill='white' text-anchor='middle'%3EMS%3C/text%3E%3C/svg%3E">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Mukesh Sharma",
+  "jobTitle": "MSP Automation Architect",
+  "worksFor": { "@type": "Organization", "name": "Xentek" },
+  "address": { "@type": "PostalAddress", "addressLocality": "Halifax", "addressRegion": "NS", "addressCountry": "CA" },
+  "email": "mailto:mukesh.sharma@xentek.ca",
+  "sameAs": [
+    "https://www.linkedin.com/in/mukesh-sharma-msp-ai-automation-security/",
+    "https://github.com/xentek-ca",
+    "https://research.xentek.ca/"
+  ]
+}
+</script>
+<style>
+  :root {
+    --bg: #ffffff;
+    --surface: #f5f8fb;
+    --text: #141a22;
+    --muted: #5a6574;
+    --rule: #e1e7ee;
+    --accent: #0f4c81;
+    --accent-soft: #e7eff7;
+    --chip: #eef2f6;
+    --chip-text: #2a3441;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0e1217;
+      --surface: #151b22;
+      --text: #e5e9ef;
+      --muted: #98a4b2;
+      --rule: #252e39;
+      --accent: #82b8e8;
+      --accent-soft: #172433;
+      --chip: #1b232c;
+      --chip-text: #cfd7e1;
+      color-scheme: dark;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-feature-settings: "kern", "liga";
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; text-underline-offset: 2px; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+
+  .wrap { max-width: 900px; margin: 0 auto; padding: 56px 28px 64px; }
+
+  /* Header */
+  header { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; }
+  h1 { font-size: clamp(2rem, 5.5vw, 2.8rem); line-height: 1.05; letter-spacing: -0.02em; margin: 0 0 8px; font-weight: 750; }
+  .tagline { font-weight: 600; color: var(--accent); font-size: 1.08rem; margin: 0 0 6px; }
+  .location { color: var(--muted); margin: 0 0 12px; font-size: .95rem; }
+  .contact { display: flex; flex-wrap: wrap; gap: 4px 0; margin: 0; padding: 0; list-style: none; font-size: .95rem; }
+  .contact li { white-space: nowrap; }
+  .contact li + li::before { content: "·"; color: var(--muted); margin: 0 10px; }
+  .print-btn {
+    flex: none; cursor: pointer; font: inherit; font-size: .9rem; font-weight: 600;
+    color: var(--accent); background: var(--accent-soft); border: 1px solid transparent;
+    border-radius: 999px; padding: 8px 16px; margin-top: 6px;
+  }
+  .print-btn:hover { border-color: var(--accent); }
+
+  /* Sections */
+  section { margin-top: 36px; }
+  h2 {
+    font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--accent);
+    margin: 0 0 14px; padding-bottom: 7px; border-bottom: 1px solid var(--rule); font-weight: 700;
+  }
+  p { margin: 0; }
+  .profile { font-size: 1.02rem; }
+
+  /* Highlights */
+  .metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
+  .card { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 14px 14px 13px; }
+  .num { display: block; font-size: 1.65rem; font-weight: 750; line-height: 1.1; color: var(--accent); letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+  .lbl { display: block; font-weight: 650; font-size: .9rem; margin-top: 4px; line-height: 1.3; }
+  .ctx { display: block; color: var(--muted); font-size: .8rem; margin-top: 4px; line-height: 1.4; }
+
+  /* Lists */
+  ul.plain { list-style: none; margin: 0; padding: 0; }
+  ul.bullets { margin: 6px 0 0; padding-left: 1.15em; }
+  ul.bullets li { margin: 3px 0; }
+  ul.bullets li::marker { color: var(--muted); }
+
+  .work li { margin-bottom: 12px; }
+  .work li:last-child { margin-bottom: 0; }
+  .work .name { font-weight: 650; }
+  .url { font: .78rem/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: var(--muted); margin-left: 8px; overflow-wrap: anywhere; }
+
+  .expertise { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 28px; }
+  .expertise li, .builds li { font-size: .95rem; }
+  .expertise strong, .builds strong { font-weight: 650; }
+  .builds li { margin-bottom: 9px; }
+  .builds li:last-child { margin-bottom: 0; }
+
+  /* Experience */
+  .role { margin-bottom: 20px; }
+  .role:last-child { margin-bottom: 0; }
+  .role-head { display: flex; justify-content: space-between; align-items: baseline; gap: 4px 16px; flex-wrap: wrap; }
+  h3 { font-size: 1.02rem; margin: 0; font-weight: 680; line-height: 1.35; }
+  .org { color: var(--muted); font-size: .93rem; margin-top: 1px; }
+  .dates { color: var(--muted); font-size: .88rem; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .role ul.bullets { font-size: .95rem; }
+
+  /* Tools */
+  .tools { display: grid; grid-template-columns: 210px 1fr; gap: 0; margin: 0; }
+  .tools dt, .tools dd { padding: 8px 0; border-top: 1px solid var(--rule); margin: 0; }
+  .tools dt:first-of-type, .tools dd:first-of-type { border-top: 0; padding-top: 0; }
+  .tools dt { font-weight: 650; font-size: .9rem; padding-right: 16px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 5px; }
+  .chip { background: var(--chip); color: var(--chip-text); border-radius: 6px; padding: 2px 8px; font-size: .8rem; line-height: 1.6; }
+
+  footer { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--rule); color: var(--muted); font-size: .9rem; text-align: center; }
+
+  /* Tablet */
+  @media (max-width: 760px) {
+    .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .expertise { grid-template-columns: 1fr; }
+    .tools { grid-template-columns: 1fr; }
+    .tools dt { border-top: 1px solid var(--rule); padding-bottom: 4px; }
+    .tools dd { border-top: 0; padding-top: 0; padding-bottom: 10px; }
+    .tools dt:first-of-type { border-top: 0; }
+  }
+  /* Phone */
+  @media (max-width: 560px) {
+    .wrap { padding: 28px 16px 40px; }
+    header { flex-direction: column; gap: 14px; }
+    .print-btn { margin-top: 0; }
+    .contact { flex-direction: column; gap: 3px; }
+    .contact li + li::before { content: none; }
+    .num { font-size: 1.4rem; }
+    .url { display: block; margin-left: 0; }
+  }
+
+  /* Print / Save as PDF: always light, US Letter, tight spacing */
+  @page { size: Letter; margin: 0.5in 0.55in; }
+  @media print {
+    :root {
+      --bg: #fff; --surface: #f5f8fb; --text: #141a22; --muted: #505b69; --rule: #dde3ea;
+      --accent: #0f4c81; --accent-soft: #e7eff7; --chip: #eef2f6; --chip-text: #2a3441;
+      color-scheme: light;
+    }
+    html { font-size: 9.4pt; } /* rem-based screen sizes scale down with it */
+    body { font-size: 9.4pt; line-height: 1.42; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .profile { font-size: 9.6pt; }
+    .wrap { max-width: none; padding: 0; }
+    .no-print { display: none !important; }
+    a { color: inherit; }
+    .contact a, .work a { color: var(--accent); }
+    h1 { font-size: 22pt; margin-bottom: 4px; }
+    .tagline { font-size: 10.5pt; margin-bottom: 2px; }
+    .location, .contact { font-size: 9pt; }
+    .location { margin-bottom: 6px; }
+    section { margin-top: 15px; }
+    h2 { font-size: 7.6pt; margin-bottom: 8px; padding-bottom: 4px; break-after: avoid; }
+    .metrics { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+    .card { padding: 7px 9px; border-radius: 6px; }
+    .num { font-size: 14pt; }
+    .lbl { font-size: 8.3pt; margin-top: 2px; }
+    .ctx { font-size: 7.6pt; margin-top: 2px; line-height: 1.32; }
+    /* columns instead of grid: no row-height gaps between uneven items */
+    .expertise { display: block; columns: 2; column-gap: 20px; }
+    .expertise li { margin-bottom: 5px; }
+    .expertise li, .builds li, .role ul.bullets { font-size: 9pt; }
+    .tools { grid-template-columns: 1.55in 1fr; }
+    .tools dt, .tools dd { padding: 4px 0; }
+    .tools dt { font-size: 8.6pt; }
+    .chip { font-size: 7.8pt; padding: 0 6px; }
+    .role { margin-bottom: 10px; }
+    h3 { font-size: 9.8pt; }
+    .org, .dates { font-size: 8.6pt; }
+    ul.bullets { margin-top: 3px; }
+    ul.bullets li { margin: 1px 0; }
+    .work li { margin-bottom: 6px; }
+    .builds li { margin-bottom: 5px; }
+    .url { font-size: 7.6pt; }
+    .card, .role, .work li, .builds li, .expertise li, .tools dt, .tools dd { break-inside: avoid; }
+    .role-head { break-after: avoid; }
+    footer { margin-top: 16px; padding-top: 8px; font-size: 8.6pt; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div>
+      <h1>Mukesh Sharma</h1>
+      <p class="tagline">MSP Automation Architect · Founder &amp; Principal Consultant, Xentek</p>
+      <p class="location">Halifax, Nova Scotia · Atlantic time, with full coverage from Atlantic to Pacific time and an overnight team in India</p>
+      <ul class="contact" aria-label="Contact">
+        <li><a href="mailto:mukesh.sharma@xentek.ca">mukesh.sharma@xentek.ca</a></li>
+        <li><a href="https://www.linkedin.com/in/mukesh-sharma-msp-ai-automation-security/" rel="me">LinkedIn</a></li>
+        <li><a href="https://github.com/xentek-ca" rel="me">github.com/xentek-ca</a></li>
+        <li><a href="https://research.xentek.ca/">research.xentek.ca</a></li>
+      </ul>
+    </div>
+    <button class="print-btn no-print" type="button" onclick="window.print()">Save as PDF</button>
+  </header>
+
+  <section aria-labelledby="h-profile">
+    <h2 id="h-profile">Profile</h2>
+    <p class="profile">Automation architect with 18 years across Windows and Linux infrastructure, Azure and AWS, including nearly 11 as an enterprise solution architect at HCL Technologies and Calance. Founded Xentek in 2018: a 15-person team delivering white-label managed services and automation for MSPs, today as subcontractor to two US MSPs (references available on request). Builds every workflow with the failure handling and documentation that a partner's technicians can run on their own.</p>
+  </section>
+
+  <section aria-labelledby="h-highlights">
+    <h2 id="h-highlights">Highlights</h2>
+    <ul class="metrics">
+      <li class="card"><span class="num">130+</span><span class="lbl">automations in production</span><span class="ctx">User lifecycle, licensing, security alerting and PSA operations</span></li>
+      <li class="card"><span class="num">$9K/mo</span><span class="lbl">billing leakage caught</span><span class="ctx">Three-way reconciliation of Pax8 invoices, tenant license assignments and PSA agreements</span></li>
+      <li class="card"><span class="num">&lt;2 wks</span><span class="lbl">Rewst to n8n re-platform</span><span class="ctx">Full automation estate moved; platform running cost cut roughly in half</span></li>
+      <li class="card"><span class="num">10 min</span><span class="lbl">user provisioning, down from 2 days</span><span class="ctx">Ticket-driven onboarding, not counting the human approval step</span></li>
+      <li class="card"><span class="num">165</span><span class="lbl">Microsoft 365 tenants</span><span class="ctx">Plus 4,500 endpoints supported across healthcare, professional services and industrial clients</span></li>
+      <li class="card"><span class="num">250</span><span class="lbl">FortiGate firewalls and FortiSwitches</span><span class="ctx">Plus 1,500 FortiAPs supported for the same client base</span></li>
+      <li class="card"><span class="num">99.99%</span><span class="lbl">availability SLA met</span><span class="ctx">SRE lead for a global travel platform: traced outages to SQL load, moved reads onto replicas</span></li>
+      <li class="card"><span class="num">SOC 2</span><span class="lbl">Type 2 attested and insured</span><span class="ctx">Partners can bring Xentek into client tenants without weakening their own compliance posture</span></li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="h-work">
+    <h2 id="h-work">Public work</h2>
+    <ul class="plain work">
+      <li>
+        <a class="name" href="https://github.com/xentek-ca/MSP-Integrations-and-Automations">MSP Integrations and Automations</a><span class="url">github.com/xentek-ca/MSP-Integrations-and-Automations</span>
+        <p>An open catalog of production automation patterns across PSA, RMM, Microsoft 365, security, licensing and Azure. Each pattern has a 13-field card covering trigger, flow, outcome and known gotchas, and can be built in Rewst, n8n, Power Automate or code.</p>
+      </li>
+      <li>
+        <a class="name" href="https://github.com/xentek-ca/NinjaOneLogger">NinjaOneLogger</a><span class="url">github.com/xentek-ca/NinjaOneLogger</span>
+        <p>An open-source client that ships structured NDJSON telemetry out of NinjaOne scripts through short-lived, write-only upload URLs, so no webhook secret ever sits on an endpoint.</p>
+      </li>
+      <li>
+        <a class="name" href="https://research.xentek.ca/">Line-of-business automation survey</a> <span class="dates">(August 2026)</span><span class="url">research.xentek.ca</span>
+        <p>Traces repetitive work in the 10 most-used desktop applications across managed client environments to vendor-documented integration points. It identifies 50 automation opportunities, 45 rated high impact, and 7 small builds to start with.</p>
+      </li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="h-expertise">
+    <h2 id="h-expertise">Core expertise</h2>
+    <ul class="plain expertise">
+      <li><strong>MSP automation design:</strong> retry-safe workflows in n8n and Rewst that write failures back to the PSA ticket instead of leaving work half-done.</li>
+      <li><strong>PSA and RMM integration:</strong> ConnectWise PSA intake, company mapping, deduplication, agreements and status flows; NinjaOne organizations, policies and scripting.</li>
+      <li><strong>Microsoft 365 and identity:</strong> user lifecycle through Graph, Entra ID and Intune; Conditional Access and anti-spoofing hardening; GDAP, NCE and Partner Center for multi-tenant licensing.</li>
+      <li><strong>Migrations and continuity:</strong> cross-tenant and hybrid Microsoft 365 moves, Citrix to Azure Virtual Desktop, firewall cutovers to FortiGate, Datto BCDR.</li>
+      <li><strong>Security operations:</strong> Huntress and SentinelOne alert enrichment, deduplication and routing into the PSA.</li>
+      <li><strong>Azure and platform engineering:</strong> landing zones, AVD and cost optimization; self-hosted n8n on Azure Container Apps behind FortiGate, with SSO/SAML, geo-fenced access and centralized logging.</li>
+      <li><strong>Kubernetes and containers:</strong> production clusters on AKS, EKS and self-managed Kubernetes, deployed with Helm and GitOps; Docker image builds and registries.</li>
+      <li><strong>Linux, DevOps and SRE:</strong> RHEL-family and Ubuntu/Debian administration; infrastructure as code in Terraform, Bicep/ARM, CloudFormation/CDK and Ansible; CI/CD in GitHub Actions, Azure DevOps, GitLab CI and Jenkins; Prometheus and Grafana observability.</li>
+      <li><strong>AI infrastructure:</strong> retrieval-augmented generation and semantic search on Azure AI Search and Azure OpenAI; LLM-assisted parsing and classification inside automation pipelines; contact-center voice agents on Amazon Connect and ElevenLabs.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="h-exp">
+    <h2 id="h-exp">Experience</h2>
+
+    <article class="role">
+      <div class="role-head">
+        <div><h3>Founder &amp; Principal Consultant</h3><div class="org">Xentek · Halifax, NS</div></div>
+        <span class="dates">Nov 2018 – Present</span>
+      </div>
+      <ul class="bullets">
+        <li>Built a 15-person team delivering white-label managed services and automation for MSPs; currently subcontractor to two US MSPs.</li>
+        <li>Architected and operate an integrated MSP platform spanning Microsoft 365, Entra ID, Azure, ConnectWise PSA, NinjaOne, SentinelOne, Huntress, Rewst and Datto BCDR.</li>
+        <li>Led migrations including Citrix to Azure Virtual Desktop, Exchange hybrid decommissioning, cross-tenant Microsoft 365 moves and OPNsense-to-FortiGate firewall cutovers.</li>
+        <li>Designed and deployed production AI infrastructure: retrieval-augmented generation and semantic search on Azure AI Search and Azure OpenAI.</li>
+        <li>Ran Rewst in production from January 2025, then re-platformed to self-hosted n8n on Azure Container Apps behind FortiGate, with SSO/SAML, geo-fenced developer access and logging to Azure Log Analytics.</li>
+        <li>Led Xentek's SOC 2 Type 2 attestation.</li>
+      </ul>
+    </article>
+
+    <article class="role">
+      <div class="role-head">
+        <div><h3>SRE Lead</h3><div class="org">Global travel platform (name withheld under NDA)</div></div>
+        <!-- TODO: add dates here, e.g. <span class="dates">2019 – 2021</span> -->
+      </div>
+      <ul class="bullets">
+        <li>Led a five-person, globally distributed SRE team for a high-traffic travel platform.</li>
+        <li>Traced recurring outages to heavy SQL load, identified the queries driving it, and built read replicas to distribute read traffic.</li>
+        <li>Improved overall uptime and helped the platform meet its 99.99% availability SLA.</li>
+      </ul>
+    </article>
+
+    <article class="role">
+      <div class="role-head">
+        <div><h3>Senior Solution Architect, Enterprise Managed Services and IT Transformation</h3><div class="org">Calance · Orange County, CA</div></div>
+        <span class="dates">Apr 2015 – Oct 2018</span>
+      </div>
+      <ul class="bullets">
+        <li>Led the cloud program end to end, covering IaaS, PaaS and application architecture, for enterprise clients in automotive, banking, healthcare and retail.</li>
+        <li>Planned and executed public and private cloud migrations with zero operational disruption, owning transition plans, KPIs, SLAs and uptime targets.</li>
+        <li>Set reference architectures and standards for reliability, scalability, security and performance, with disaster recovery and high availability built in by default.</li>
+        <li>Moved client product lines off legacy client-server systems onto a modern application platform.</li>
+        <li>Presented architecture and application-lifecycle roadmaps to CIOs, CTOs and CFOs to secure budget and resourcing.</li>
+      </ul>
+    </article>
+
+    <article class="role">
+      <div class="role-head">
+        <div><h3>Solution Architect</h3><div class="org">Calance · Greater Delhi Area</div></div>
+        <span class="dates">Jul 2013 – Mar 2015</span>
+      </div>
+      <ul class="bullets">
+        <li>Designed and maintained automation and configuration management across production R&amp;D infrastructure.</li>
+        <li>Owned security requirements, annual budgets and the high-availability and disaster-recovery plan for AWS projects.</li>
+        <li>Delivered customer implementations end to end and integrated third-party products into client environments.</li>
+      </ul>
+    </article>
+
+    <article class="role">
+      <div class="role-head">
+        <div><h3>Consultant, Product Management and Technical Excellence Groups</h3><div class="org">HCL Technologies, Infrastructure Services · Noida, India</div></div>
+        <span class="dates">Dec 2007 – Jun 2013</span>
+      </div>
+      <ul class="bullets">
+        <li>Partnered with sales on datacenter transformation, migration and managed-service opportunities, from customer discovery to final solution design.</li>
+        <li>Scoped sizing, effort and timelines with delivery and project managers for new and existing enterprise clients.</li>
+        <li>Designed infrastructure solutions in the architecture group, matched to customer needs to grow revenue.</li>
+      </ul>
+    </article>
+  </section>
+
+  <section aria-labelledby="h-builds">
+    <h2 id="h-builds">Selected builds</h2>
+    <ul class="plain builds">
+      <li><strong>User onboarding and offboarding:</strong> a PSA ticket provisions the Entra user, license, groups, RMM organization and policy, then posts a checklist back to the ticket, cutting provisioning from 2 days to 10 minutes, not counting the human approval step. Graph throttling, expired GDAP tokens and RMM auth errors land on the ticket with the raw error, never as a half-provisioned user.</li>
+      <li><strong>Three-way license reconciliation:</strong> compares the Pax8 invoice, what is assigned in each tenant and what the PSA bills. It catches NCE mid-term changes, lapsed GDAP and stale agreement quantities before invoicing goes out.</li>
+      <li><strong>Security alert enrichment:</strong> Huntress and SentinelOne alerts are enriched with sign-in data, deduplicated and routed to the right PSA company, so a technician gets one ticket with the context to act.</li>
+      <li><strong>Ticket triage engine:</strong> classifies, prioritizes and routes ConnectWise tickets to the right queue, then escalates on SLA rules.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="h-tools">
+    <h2 id="h-tools">Platforms and tools</h2>
+    <dl class="tools">
+      <dt>Automation</dt>
+      <dd class="chips"><span class="chip">n8n (self-hosted on Azure Container Apps)</span><span class="chip">Rewst</span><span class="chip">Power Automate</span><span class="chip">PowerShell</span><span class="chip">Python</span><span class="chip">REST and GraphQL APIs</span><span class="chip">Webhooks</span><span class="chip">JSON and NDJSON</span><span class="chip">OAuth 2.0 and SAML SSO</span><span class="chip">Microsoft Graph</span><span class="chip">Retry-safe workflow patterns</span><span class="chip">PSA ticket write-back</span><span class="chip">NinjaOne scripting</span><span class="chip">NinjaOneLogger</span></dd>
+      <dt>PSA and RMM</dt>
+      <dd class="chips"><span class="chip">ConnectWise PSA</span><span class="chip">Autotask PSA</span><span class="chip">HaloPSA</span><span class="chip">Syncro</span><span class="chip">Kaseya BMS</span><span class="chip">SuperOps</span><span class="chip">NinjaOne</span></dd>
+      <dt>Microsoft</dt>
+      <dd class="chips"><span class="chip">Microsoft 365</span><span class="chip">Exchange Online and hybrid</span><span class="chip">Graph API</span><span class="chip">Entra ID</span><span class="chip">Intune</span><span class="chip">Azure</span><span class="chip">AVD</span><span class="chip">Partner Center (GDAP, NCE)</span></dd>
+      <dt>AI</dt>
+      <dd class="chips"><span class="chip">Azure OpenAI</span><span class="chip">Azure AI Search</span><span class="chip">Anthropic Claude</span><span class="chip">Amazon Connect</span><span class="chip">ElevenLabs</span></dd>
+      <dt>Security and continuity</dt>
+      <dd class="chips"><span class="chip">Huntress</span><span class="chip">SentinelOne</span><span class="chip">FortiGate</span><span class="chip">Datto BCDR</span></dd>
+      <dt>Licensing, documentation and tenants</dt>
+      <dd class="chips"><span class="chip">Pax8</span><span class="chip">Liongard</span><span class="chip">CIPP</span></dd>
+      <dt>Observability</dt>
+      <dd class="chips"><span class="chip">Prometheus</span><span class="chip">Grafana</span><span class="chip">Azure Log Analytics</span></dd>
+      <dt>Containers and orchestration</dt>
+      <dd class="chips"><span class="chip">Kubernetes (AKS, EKS, self-managed)</span><span class="chip">Helm</span><span class="chip">GitOps</span><span class="chip">Docker</span></dd>
+      <dt>Infrastructure as code</dt>
+      <dd class="chips"><span class="chip">Terraform</span><span class="chip">Bicep and ARM</span><span class="chip">AWS CloudFormation and CDK</span><span class="chip">Ansible</span></dd>
+      <dt>CI/CD</dt>
+      <dd class="chips"><span class="chip">GitHub Actions</span><span class="chip">Azure DevOps</span><span class="chip">GitLab CI</span><span class="chip">Jenkins</span></dd>
+      <dt>Linux</dt>
+      <dd class="chips"><span class="chip">RHEL family</span><span class="chip">Ubuntu and Debian</span></dd>
+      <dt>Data and streaming</dt>
+      <dd class="chips"><span class="chip">Apache Kafka</span><span class="chip">ETL pipelines</span></dd>
+    </dl>
+  </section>
+
+  <section aria-labelledby="h-edu">
+    <h2 id="h-edu">Education</h2>
+    <div class="role-head">
+      <div><h3>Bachelor's degree, Mathematics</h3><div class="org">Lucknow University</div></div>
+      <span class="dates">2003 – 2006</span>
+    </div>
+  </section>
+
+  <footer>References available on request.</footer>
+
+</div>
+</body>
+</html>
