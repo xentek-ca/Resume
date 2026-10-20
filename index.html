@@ -1,8 +1,10 @@
 <!doctype html>
 <!--
-  Public resume for GitHub Pages.
+  Public resume for GitHub Pages: https://xentek-ca.github.io/Resume/
   Public-version rules: no phone number; SRE employer named only as "global travel platform" (NDA).
   Private/full version lives in the Claude Doc "Mukesh Sharma — Resume".
+  Single file, no external dependencies. Motion is screen-only and respects prefers-reduced-motion;
+  print/PDF output is static and unchanged.
 -->
 <html lang="en-US">
 <head>
@@ -12,9 +14,10 @@
 <meta name="description" content="Mukesh Sharma — MSP automation architect and founder of Xentek. White-label managed services and automation for MSPs: PSA/RMM integration, Microsoft 365, security operations, Azure, Kubernetes and SRE.">
 <meta property="og:type" content="profile">
 <meta property="og:title" content="Mukesh Sharma — MSP Automation Architect">
-<meta property="og:description" content="Founder of Xentek. 130+ production automations, 165 Microsoft 365 tenants, SOC 2 Type 2. White-label automation and managed services for MSPs.">
-<meta name="theme-color" content="#0f4c81">
+<meta property="og:description" content="Founder of Xentek. 130+ production automations, production Kubernetes, 165 Microsoft 365 tenants, SOC 2 Type 2. White-label automation and managed services for MSPs.">
+<meta name="theme-color" content="#081a33">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f4c81'/%3E%3Ctext x='32' y='42' font-family='Arial,Helvetica,sans-serif' font-size='26' font-weight='700' fill='white' text-anchor='middle'%3EMS%3C/text%3E%3C/svg%3E">
+<script>document.documentElement.classList.add('js');</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -39,22 +42,29 @@
     --muted: #5a6574;
     --rule: #e1e7ee;
     --accent: #0f4c81;
+    --accent-2: #0b8a9c;
     --accent-soft: #e7eff7;
     --chip: #eef2f6;
     --chip-text: #2a3441;
+    --shadow: 0 10px 30px -12px rgba(15, 76, 129, .28);
+    --hero-1: #081a33;
+    --hero-2: #0f3d6e;
+    --hero-3: #0b5c78;
     color-scheme: light;
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #0e1217;
-      --surface: #151b22;
+      --bg: #0b0f14;
+      --surface: #131a22;
       --text: #e5e9ef;
       --muted: #98a4b2;
-      --rule: #252e39;
+      --rule: #232c37;
       --accent: #82b8e8;
+      --accent-2: #5fd0d8;
       --accent-soft: #172433;
-      --chip: #1b232c;
+      --chip: #1a222b;
       --chip-text: #cfd7e1;
+      --shadow: 0 12px 34px -14px rgba(0, 0, 0, .7);
       color-scheme: dark;
     }
   }
@@ -70,40 +80,116 @@
   }
   a { color: var(--accent); text-decoration: none; }
   a:hover { text-decoration: underline; text-underline-offset: 2px; }
-  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 3px; border-radius: 6px; }
+  .ico { width: 16px; height: 16px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
-  .wrap { max-width: 900px; margin: 0 auto; padding: 56px 28px 64px; }
-
-  /* Header */
-  header { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; }
-  h1 { font-size: clamp(2rem, 5.5vw, 2.8rem); line-height: 1.05; letter-spacing: -0.02em; margin: 0 0 8px; font-weight: 750; }
-  .tagline { font-weight: 600; color: var(--accent); font-size: 1.08rem; margin: 0 0 6px; }
-  .location { color: var(--muted); margin: 0 0 12px; font-size: .95rem; }
-  .contact { display: flex; flex-wrap: wrap; gap: 4px 0; margin: 0; padding: 0; list-style: none; font-size: .95rem; }
-  .contact li { white-space: nowrap; }
-  .contact li + li::before { content: "·"; color: var(--muted); margin: 0 10px; }
-  .print-btn {
-    flex: none; cursor: pointer; font: inherit; font-size: .9rem; font-weight: 600;
-    color: var(--accent); background: var(--accent-soft); border: 1px solid transparent;
-    border-radius: 999px; padding: 8px 16px; margin-top: 6px;
+  /* Scroll progress */
+  .progress {
+    position: fixed; inset: 0 0 auto 0; height: 3px; z-index: 50;
+    background: linear-gradient(90deg, var(--accent-2), #7fdcff, var(--accent));
+    transform-origin: 0 50%; transform: scaleX(0);
   }
-  .print-btn:hover { border-color: var(--accent); }
 
-  /* Sections */
-  section { margin-top: 36px; }
+  /* Hero */
+  .hero {
+    position: relative; overflow: hidden; color: #fff;
+    background: linear-gradient(125deg, var(--hero-1) 0%, var(--hero-2) 38%, var(--hero-3) 66%, var(--hero-1) 100%);
+    background-size: 220% 220%;
+    animation: drift 24s ease-in-out infinite alternate;
+  }
+  .hero::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background:
+      radial-gradient(620px 320px at 88% -10%, rgba(95, 208, 216, .22), transparent 70%),
+      radial-gradient(520px 300px at -5% 110%, rgba(130, 184, 232, .18), transparent 70%);
+  }
+  .hero::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(127, 220, 255, .6), transparent);
+  }
+  .net { position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; }
+  .hero-inner { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 60px 28px 54px; }
+  .hero-inner > * { animation: rise .8s cubic-bezier(.2, .7, .2, 1) both; }
+  .hero-inner > :nth-child(2) { animation-delay: .08s; }
+  .hero-inner > :nth-child(3) { animation-delay: .16s; }
+  .hero-inner > :nth-child(4) { animation-delay: .24s; }
+  .hero-inner > :nth-child(5) { animation-delay: .32s; }
+  .hero-inner > :nth-child(6) { animation-delay: .4s; }
+
+  .status {
+    display: inline-flex; align-items: center; gap: 8px; margin: 0 0 18px;
+    font-size: .8rem; font-weight: 600; letter-spacing: .02em; color: #cdeffd;
+    background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .16);
+    padding: 5px 12px 5px 10px; border-radius: 999px; backdrop-filter: blur(6px);
+  }
+  .pulse { position: relative; width: 8px; height: 8px; border-radius: 50%; background: #4ade80; }
+  .pulse::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: #4ade80; animation: ping 2s cubic-bezier(0, 0, .2, 1) infinite; }
+
+  h1 { font-size: clamp(2.3rem, 6vw, 3.4rem); line-height: 1.02; letter-spacing: -0.025em; margin: 0 0 10px; font-weight: 780; color: #fff; }
+  .tagline { font-weight: 600; color: #9fd6ff; font-size: 1.12rem; margin: 0 0 6px; }
+  .location { color: rgba(255, 255, 255, .72); margin: 0 0 22px; font-size: .95rem; max-width: 640px; }
+  .contact { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; font-size: .9rem; }
+  .contact a {
+    display: inline-flex; align-items: center; gap: 7px; color: #eaf6ff;
+    background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .16);
+    padding: 7px 13px; border-radius: 999px; backdrop-filter: blur(6px);
+    transition: background .2s ease, border-color .2s ease, transform .2s ease;
+  }
+  .contact a:hover { text-decoration: none; background: rgba(255, 255, 255, .16); border-color: rgba(127, 220, 255, .55); transform: translateY(-1px); }
+  .print-btn {
+    display: inline-flex; align-items: center; gap: 7px; cursor: pointer;
+    font: inherit; font-size: .9rem; font-weight: 650; color: var(--hero-1);
+    background: #fff; border: 0; border-radius: 999px; padding: 8px 16px; margin-top: 16px;
+    box-shadow: 0 6px 20px -8px rgba(0, 0, 0, .5); transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .print-btn:hover { transform: translateY(-1px); box-shadow: 0 10px 26px -8px rgba(127, 220, 255, .55); }
+  /* Wide screens: button sits top-right, level with the status pill */
+  @media (min-width: 900px) { .print-btn { position: absolute; top: 58px; right: 28px; margin-top: 0; } }
+
+  /* Layout */
+  .wrap { max-width: 900px; margin: 0 auto; padding: 4px 28px 64px; }
+  section { margin-top: 44px; }
   h2 {
+    display: flex; align-items: center; gap: 10px;
     font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--accent);
-    margin: 0 0 14px; padding-bottom: 7px; border-bottom: 1px solid var(--rule); font-weight: 700;
+    margin: 0 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); font-weight: 700;
+  }
+  h2::before {
+    content: ""; width: 24px; height: 3px; border-radius: 2px; flex: none;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    transform-origin: 0 50%; transition: transform .7s cubic-bezier(.2, .7, .2, 1) .15s;
   }
   p { margin: 0; }
-  .profile { font-size: 1.02rem; }
+  .profile { font-size: 1.04rem; }
+
+  /* Reveal on scroll (hidden state only when JS is running) */
+  .reveal { transition: opacity .7s ease var(--d, 0s), translate .7s cubic-bezier(.2, .7, .2, 1) var(--d, 0s); }
+  .js .reveal:not(.in) { opacity: 0; translate: 0 18px; }
+  .js h2.reveal:not(.in)::before { transform: scaleX(0); }
 
   /* Highlights */
-  .metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
-  .card { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 14px 14px 13px; }
-  .num { display: block; font-size: 1.65rem; font-weight: 750; line-height: 1.1; color: var(--accent); letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
-  .lbl { display: block; font-weight: 650; font-size: .9rem; margin-top: 4px; line-height: 1.3; }
-  .ctx { display: block; color: var(--muted); font-size: .8rem; margin-top: 4px; line-height: 1.4; }
+  .metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 0; padding: 0; list-style: none; }
+  .card {
+    position: relative; overflow: hidden;
+    background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 16px 15px 15px;
+    transition: opacity .7s ease var(--d, 0s), translate .7s cubic-bezier(.2, .7, .2, 1) var(--d, 0s),
+                transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .card::before {
+    content: ""; position: absolute; inset: 0 0 auto 0; height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    transform-origin: 0 50%; transition: transform .9s cubic-bezier(.2, .7, .2, 1) calc(var(--d, 0s) + .25s);
+  }
+  .js .card:not(.in)::before { transform: scaleX(0); }
+  .card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: color-mix(in srgb, var(--accent) 35%, var(--rule)); }
+  .num {
+    display: block; font-size: 1.7rem; font-weight: 780; line-height: 1.1; letter-spacing: -0.01em; font-variant-numeric: tabular-nums;
+    color: var(--accent);
+    background: linear-gradient(120deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .lbl { display: block; font-weight: 650; font-size: .9rem; margin-top: 5px; line-height: 1.3; }
+  .ctx { display: block; color: var(--muted); font-size: .8rem; margin-top: 5px; line-height: 1.4; }
 
   /* Lists */
   ul.plain { list-style: none; margin: 0; padding: 0; }
@@ -111,37 +197,90 @@
   ul.bullets li { margin: 3px 0; }
   ul.bullets li::marker { color: var(--muted); }
 
-  .work li { margin-bottom: 12px; }
-  .work li:last-child { margin-bottom: 0; }
-  .work .name { font-weight: 650; }
-  .url { font: .78rem/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: var(--muted); margin-left: 8px; overflow-wrap: anywhere; }
+  /* Public work */
+  .work { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  .work li {
+    display: flex; flex-direction: column; gap: 6px;
+    background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 16px;
+    transition: opacity .7s ease var(--d, 0s), translate .7s cubic-bezier(.2, .7, .2, 1) var(--d, 0s),
+                transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .work li:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: color-mix(in srgb, var(--accent) 35%, var(--rule)); }
+  .work .badge-ico {
+    display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 9px;
+    color: #fff; background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  }
+  .work .name { font-weight: 680; line-height: 1.3; }
+  .work p { font-size: .9rem; color: var(--text); }
+  .work .when { color: var(--muted); font-weight: 400; font-size: .85rem; }
+  .url { font: .74rem/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: var(--muted); overflow-wrap: anywhere; }
+  .work .url { display: block; margin-top: 3px; }
 
-  .expertise { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 28px; }
-  .expertise li, .builds li { font-size: .95rem; }
+  /* Expertise */
+  .expertise { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 28px; }
+  .expertise li { font-size: .95rem; padding-left: 14px; border-left: 2px solid var(--rule); transition: opacity .7s ease var(--d, 0s), translate .7s cubic-bezier(.2, .7, .2, 1) var(--d, 0s), border-color .25s ease; }
+  .expertise li:hover { border-left-color: var(--accent-2); }
   .expertise strong, .builds strong { font-weight: 650; }
-  .builds li { margin-bottom: 9px; }
-  .builds li:last-child { margin-bottom: 0; }
 
-  /* Experience */
-  .role { margin-bottom: 20px; }
+  /* Experience timeline */
+  .timeline { position: relative; padding-left: 30px; }
+  .timeline::before {
+    content: ""; position: absolute; left: 6px; top: 8px; bottom: 8px; width: 2px; border-radius: 2px;
+    background: linear-gradient(180deg, var(--accent-2), var(--accent) 40%, var(--rule));
+  }
+  .role { position: relative; margin-bottom: 24px; }
   .role:last-child { margin-bottom: 0; }
+  .role::before {
+    content: ""; position: absolute; left: -30px; top: 5px; width: 14px; height: 14px; border-radius: 50%;
+    background: var(--bg); border: 3px solid var(--accent); box-sizing: border-box;
+    transition: transform .5s cubic-bezier(.3, 1.6, .5, 1) calc(var(--d, 0s) + .2s);
+  }
+  .js .role:not(.in)::before { transform: scale(0); }
+  .role.current::before { background: var(--accent-2); border-color: var(--accent-2); }
+  .role.current::after {
+    content: ""; position: absolute; left: -30px; top: 5px; width: 14px; height: 14px; border-radius: 50%;
+    background: var(--accent-2); animation: ping 2.4s cubic-bezier(0, 0, .2, 1) infinite;
+  }
   .role-head { display: flex; justify-content: space-between; align-items: baseline; gap: 4px 16px; flex-wrap: wrap; }
-  h3 { font-size: 1.02rem; margin: 0; font-weight: 680; line-height: 1.35; }
+  h3 { font-size: 1.04rem; margin: 0; font-weight: 680; line-height: 1.35; }
   .org { color: var(--muted); font-size: .93rem; margin-top: 1px; }
-  .dates { color: var(--muted); font-size: .88rem; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .dates { color: var(--muted); font-size: .86rem; white-space: nowrap; font-variant-numeric: tabular-nums; }
   .role ul.bullets { font-size: .95rem; }
+
+  /* Selected builds */
+  .builds { counter-reset: build; }
+  .builds li { counter-increment: build; position: relative; padding-left: 48px; margin-bottom: 14px; font-size: .95rem; }
+  .builds li:last-child { margin-bottom: 0; }
+  .builds li::before {
+    content: counter(build, decimal-leading-zero);
+    position: absolute; left: 0; top: -3px; font-size: 1.35rem; font-weight: 780; letter-spacing: -0.02em;
+    color: var(--accent);
+    background: linear-gradient(120deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
 
   /* Tools */
   .tools { display: grid; grid-template-columns: 210px 1fr; gap: 0; margin: 0; }
-  .tools dt, .tools dd { padding: 8px 0; border-top: 1px solid var(--rule); margin: 0; }
+  .tools dt, .tools dd { padding: 9px 0; border-top: 1px solid var(--rule); margin: 0; }
   .tools dt:first-of-type, .tools dd:first-of-type { border-top: 0; padding-top: 0; }
   .tools dt { font-weight: 650; font-size: .9rem; padding-right: 16px; }
-  .chips { display: flex; flex-wrap: wrap; gap: 5px; }
-  .chip { background: var(--chip); color: var(--chip-text); border-radius: 6px; padding: 2px 8px; font-size: .8rem; line-height: 1.6; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    background: var(--chip); color: var(--chip-text); border: 1px solid transparent; border-radius: 6px;
+    padding: 2px 8px; font-size: .8rem; line-height: 1.6; transition: background .2s ease, color .2s ease, border-color .2s ease;
+  }
+  .chip:hover { background: var(--accent-soft); color: var(--accent); border-color: color-mix(in srgb, var(--accent) 30%, transparent); }
 
-  footer { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--rule); color: var(--muted); font-size: .9rem; text-align: center; }
+  footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--rule); color: var(--muted); font-size: .9rem; text-align: center; }
+
+  @keyframes drift { from { background-position: 0% 30%; } to { background-position: 100% 70%; } }
+  @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  @keyframes ping { 0% { transform: scale(1); opacity: .7; } 80%, 100% { transform: scale(2.6); opacity: 0; } }
 
   /* Tablet */
+  @media (max-width: 820px) {
+    .work { grid-template-columns: 1fr; }
+  }
   @media (max-width: 760px) {
     .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .expertise { grid-template-columns: 1fr; }
@@ -152,56 +291,89 @@
   }
   /* Phone */
   @media (max-width: 560px) {
-    .wrap { padding: 28px 16px 40px; }
-    header { flex-direction: column; gap: 14px; }
-    .print-btn { margin-top: 0; }
-    .contact { flex-direction: column; gap: 3px; }
-    .contact li + li::before { content: none; }
-    .num { font-size: 1.4rem; }
-    .url { display: block; margin-left: 0; }
+    .hero-inner { padding: 36px 16px 32px; }
+    .wrap { padding: 0 16px 40px; }
+    section { margin-top: 36px; }
+    .num { font-size: 1.45rem; }
+    .card { padding: 14px 12px 13px; }
+    .timeline { padding-left: 26px; }
+    .role::before, .role.current::after { left: -26px; }
+    .builds li { padding-left: 40px; }
   }
 
-  /* Print / Save as PDF: always light, US Letter, tight spacing */
+  /* Respect reduced motion: everything visible, nothing moves */
+  @media (prefers-reduced-motion: reduce) {
+    .hero, .hero-inner > *, .pulse::after, .role.current::after { animation: none !important; }
+    .js .reveal:not(.in) { opacity: 1; translate: none; }
+    *, *::before, *::after { transition-duration: 0s !important; transition-delay: 0s !important; }
+  }
+
+  /* Print / Save as PDF: always light, US Letter, static */
   @page { size: Letter; margin: 0.5in 0.55in; }
   @media print {
     :root {
       --bg: #fff; --surface: #f5f8fb; --text: #141a22; --muted: #505b69; --rule: #dde3ea;
-      --accent: #0f4c81; --accent-soft: #e7eff7; --chip: #eef2f6; --chip-text: #2a3441;
+      --accent: #0f4c81; --accent-2: #0b8a9c; --accent-soft: #e7eff7; --chip: #eef2f6; --chip-text: #2a3441;
       color-scheme: light;
     }
-    html { font-size: 9.4pt; } /* rem-based screen sizes scale down with it */
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    html { font-size: 9.4pt; }
     body { font-size: 9.4pt; line-height: 1.42; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    .profile { font-size: 9.6pt; }
-    .wrap { max-width: none; padding: 0; }
-    .no-print { display: none !important; }
+    .no-print, .net, .progress { display: none !important; }
+    .reveal, .js .reveal:not(.in) { opacity: 1 !important; translate: none !important; }
     a { color: inherit; }
-    .contact a, .work a { color: var(--accent); }
-    h1 { font-size: 22pt; margin-bottom: 4px; }
-    .tagline { font-size: 10.5pt; margin-bottom: 2px; }
-    .location, .contact { font-size: 9pt; }
-    .location { margin-bottom: 6px; }
+
+    .hero { background: none; color: var(--text); overflow: visible; }
+    .hero::before, .hero::after { display: none; }
+    .hero-inner { padding: 0; max-width: none; }
+    h1 { font-size: 22pt; margin-bottom: 4px; color: var(--text); }
+    .tagline { font-size: 10.5pt; margin-bottom: 2px; color: var(--accent); }
+    .location { font-size: 9pt; margin-bottom: 6px; color: var(--muted); max-width: none; }
+    .contact { gap: 0; font-size: 9pt; }
+    .contact a { background: none; border: 0; padding: 0; color: var(--accent); backdrop-filter: none; }
+    .contact .ico { display: none; }
+    .contact li + li::before { content: "·"; color: var(--muted); margin: 0 9px; }
+
+    .wrap { max-width: none; padding: 0; }
     section { margin-top: 15px; }
-    h2 { font-size: 7.6pt; margin-bottom: 8px; padding-bottom: 4px; break-after: avoid; }
+    h2 { display: block; font-size: 7.6pt; margin-bottom: 8px; padding-bottom: 4px; break-after: avoid; }
+    h2::before { display: none; }
+    .profile { font-size: 9.6pt; }
+
     .metrics { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
     .card { padding: 7px 9px; border-radius: 6px; }
-    .num { font-size: 14pt; }
+    .card::before { display: none; }
+    .num { font-size: 14pt; background: none; -webkit-text-fill-color: currentColor; color: var(--accent); }
     .lbl { font-size: 8.3pt; margin-top: 2px; }
     .ctx { font-size: 7.6pt; margin-top: 2px; line-height: 1.32; }
-    /* columns instead of grid: no row-height gaps between uneven items */
+
+    .work { display: block; }
+    .work li { display: block; background: none; border: 0; padding: 0; margin-bottom: 6px; }
+    .work .badge-ico { display: none; }
+    .work .url { display: inline; margin: 0 0 0 8px; }
+    .work li > div { display: inline; }
+    .work p { font-size: 9.4pt; }
+
     .expertise { display: block; columns: 2; column-gap: 20px; }
-    .expertise li { margin-bottom: 5px; }
-    .expertise li, .builds li, .role ul.bullets { font-size: 9pt; }
+    .expertise li { margin-bottom: 5px; padding-left: 0; border-left: 0; font-size: 9pt; }
+
+    .timeline { padding-left: 0; }
+    .timeline::before, .role::before, .role.current::after { display: none; }
+    .role { margin-bottom: 10px; }
+    h3 { font-size: 9.8pt; }
+    .org, .dates { font-size: 8.6pt; }
+    .role ul.bullets { font-size: 9pt; }
+    ul.bullets { margin-top: 3px; }
+    ul.bullets li { margin: 1px 0; }
+
+    .builds li { padding-left: 0; margin-bottom: 5px; font-size: 9pt; }
+    .builds li::before { display: none; }
+
     .tools { grid-template-columns: 1.55in 1fr; }
     .tools dt, .tools dd { padding: 4px 0; }
     .tools dt { font-size: 8.6pt; }
     .chip { font-size: 7.8pt; padding: 0 6px; }
-    .role { margin-bottom: 10px; }
-    h3 { font-size: 9.8pt; }
-    .org, .dates { font-size: 8.6pt; }
-    ul.bullets { margin-top: 3px; }
-    ul.bullets li { margin: 1px 0; }
-    .work li { margin-bottom: 6px; }
-    .builds li { margin-bottom: 5px; }
+
     .url { font-size: 7.6pt; }
     .card, .role, .work li, .builds li, .expertise li, .tools dt, .tools dd { break-inside: avoid; }
     .role-head { break-after: avoid; }
@@ -210,157 +382,170 @@
 </style>
 </head>
 <body>
-<div class="wrap">
 
-  <header>
-    <div>
-      <h1>Mukesh Sharma</h1>
-      <p class="tagline">MSP Automation Architect · Founder &amp; Principal Consultant, Xentek</p>
-      <p class="location">Halifax, Nova Scotia · Atlantic time, with full coverage from Atlantic to Pacific time and an overnight team in India</p>
-      <ul class="contact" aria-label="Contact">
-        <li><a href="mailto:mukesh.sharma@xentek.ca">mukesh.sharma@xentek.ca</a></li>
-        <li><a href="https://www.linkedin.com/in/mukesh-sharma-msp-ai-automation-security/" rel="me">LinkedIn</a></li>
-        <li><a href="https://github.com/xentek-ca" rel="me">github.com/xentek-ca</a></li>
-        <li><a href="https://research.xentek.ca/">research.xentek.ca</a></li>
-      </ul>
-    </div>
-    <button class="print-btn no-print" type="button" onclick="window.print()">Save as PDF</button>
-  </header>
+<div class="progress no-print" aria-hidden="true"></div>
+
+<header class="hero">
+  <canvas class="net" aria-hidden="true"></canvas>
+  <div class="hero-inner">
+    <p class="status no-print"><span class="pulse" aria-hidden="true"></span>Open to new MSP engagements</p>
+    <h1>Mukesh Sharma</h1>
+    <p class="tagline">MSP Automation Architect · Founder &amp; Principal Consultant, Xentek</p>
+    <p class="location">Halifax, Nova Scotia · Atlantic time, with full coverage from Atlantic to Pacific time and an overnight team in India</p>
+    <ul class="contact" aria-label="Contact">
+        <li><a href="mailto:mukesh.sharma@xentek.ca"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>mukesh.sharma@xentek.ca</a></li>
+        <li><a href="https://www.linkedin.com/in/mukesh-sharma-msp-ai-automation-security/" rel="me"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>LinkedIn</a></li>
+        <li><a href="https://github.com/xentek-ca" rel="me"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 7-5 5 5 5M16 7l5 5-5 5"/></svg>github.com/xentek-ca</a></li>
+        <li><a href="https://research.xentek.ca/"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V11M10 20V5M16 20v-6M3 20h18"/></svg>research.xentek.ca</a></li>
+    </ul>
+    <!-- Direct child of .hero-inner on purpose: an animated (transformed) parent would become its positioning box -->
+    <button class="print-btn no-print" type="button" onclick="window.print()"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></svg>Save as PDF</button>
+  </div>
+</header>
+
+<main class="wrap">
 
   <section aria-labelledby="h-profile">
-    <h2 id="h-profile">Profile</h2>
-    <p class="profile">Automation architect with 18 years across Windows and Linux infrastructure, Kubernetes, Azure and AWS, including nearly 11 as an enterprise solution architect at HCL Technologies and Calance. Founded Xentek in 2018: a 15-person team delivering white-label managed services and automation for MSPs, today as subcontractor to two US MSPs (references available on request). Builds every workflow with the failure handling and documentation that a partner's technicians can run on their own.</p>
+    <h2 id="h-profile" class="reveal">Profile</h2>
+    <p class="profile reveal">Automation architect with 18 years across Windows and Linux infrastructure, Kubernetes, Azure and AWS, including nearly 11 as an enterprise solution architect at HCL Technologies and Calance. Founded Xentek in 2018: a 15-person team delivering white-label managed services and automation for MSPs, today as subcontractor to two US MSPs (references available on request). Builds every workflow with the failure handling and documentation that a partner's technicians can run on their own.</p>
   </section>
 
   <section aria-labelledby="h-highlights">
-    <h2 id="h-highlights">Highlights</h2>
-    <ul class="metrics">
-      <li class="card"><span class="num">130+</span><span class="lbl">automations in production</span><span class="ctx">User lifecycle, licensing, security alerting and PSA ops; about 5 hours saved per technician each week</span></li>
-      <li class="card"><span class="num">AKS · EKS</span><span class="lbl">production Kubernetes</span><span class="ctx">Plus self-managed clusters; deployed with Helm and GitOps, monitored with Prometheus and Grafana</span></li>
-      <li class="card"><span class="num">$9K/mo</span><span class="lbl">billing leakage caught</span><span class="ctx">Three-way reconciliation of Pax8 invoices, tenant license assignments and PSA agreements</span></li>
-      <li class="card"><span class="num">&lt;2 wks</span><span class="lbl">Rewst to n8n re-platform</span><span class="ctx">Full automation estate moved; platform running cost cut roughly in half</span></li>
-      <li class="card"><span class="num">10 min</span><span class="lbl">user provisioning, down from 2 days</span><span class="ctx">Ticket-driven onboarding, not counting the human approval step</span></li>
-      <li class="card"><span class="num">165</span><span class="lbl">Microsoft 365 tenants</span><span class="ctx">Plus 4,500 endpoints, 250 FortiGates and FortiSwitches and 1,500 FortiAPs for healthcare, professional services and industrial clients</span></li>
-      <li class="card"><span class="num">99.99%</span><span class="lbl">availability SLA met</span><span class="ctx">SRE lead for a global travel platform: traced outages to SQL load, moved reads onto replicas</span></li>
-      <li class="card"><span class="num">SOC 2</span><span class="lbl">Type 2 attested</span><span class="ctx">Partners can bring Xentek into client tenants without weakening their own compliance posture</span></li>
+    <h2 id="h-highlights" class="reveal">Highlights</h2>
+    <!-- data-count: the final value stays in the markup (no-JS, print, SEO); JS counts up to it on first view -->
+    <ul class="metrics" data-stagger>
+      <li class="card reveal"><span class="num" data-count="130" data-suffix="+">130+</span><span class="lbl">automations in production</span><span class="ctx">User lifecycle, licensing, security alerting and PSA ops; about 5 hours saved per technician each week</span></li>
+      <li class="card reveal"><span class="num">AKS · EKS</span><span class="lbl">production Kubernetes</span><span class="ctx">Plus self-managed clusters; deployed with Helm and GitOps, monitored with Prometheus and Grafana</span></li>
+      <li class="card reveal"><span class="num" data-count="9" data-prefix="$" data-suffix="K/mo">$9K/mo</span><span class="lbl">billing leakage caught</span><span class="ctx">Three-way reconciliation of Pax8 invoices, tenant license assignments and PSA agreements</span></li>
+      <li class="card reveal"><span class="num">&lt;2 wks</span><span class="lbl">Rewst to n8n re-platform</span><span class="ctx">Full automation estate moved; platform running cost cut roughly in half</span></li>
+      <li class="card reveal"><span class="num" data-count="10" data-suffix=" min">10 min</span><span class="lbl">user provisioning, down from 2 days</span><span class="ctx">Ticket-driven onboarding, not counting the human approval step</span></li>
+      <li class="card reveal"><span class="num" data-count="165">165</span><span class="lbl">Microsoft 365 tenants</span><span class="ctx">Plus 4,500 endpoints, 250 FortiGates and FortiSwitches and 1,500 FortiAPs for healthcare, professional services and industrial clients</span></li>
+      <li class="card reveal"><span class="num" data-count="99.99" data-decimals="2" data-suffix="%">99.99%</span><span class="lbl">availability SLA met</span><span class="ctx">SRE lead for a global travel platform: traced outages to SQL load, moved reads onto replicas</span></li>
+      <li class="card reveal"><span class="num">SOC 2</span><span class="lbl">Type 2 attested</span><span class="ctx">Partners can bring Xentek into client tenants without weakening their own compliance posture</span></li>
     </ul>
   </section>
 
   <section aria-labelledby="h-work">
-    <h2 id="h-work">Public work</h2>
-    <ul class="plain work">
-      <li>
-        <a class="name" href="https://github.com/xentek-ca/MSP-Integrations-and-Automations">MSP Integrations and Automations</a><span class="url">github.com/xentek-ca/MSP-Integrations-and-Automations</span>
+    <h2 id="h-work" class="reveal">Public work</h2>
+    <ul class="plain work" data-stagger>
+      <li class="reveal">
+        <span class="badge-ico" aria-hidden="true"><svg class="ico" viewBox="0 0 24 24"><path d="m8 7-5 5 5 5M16 7l5 5-5 5"/></svg></span>
+        <div><a class="name" href="https://github.com/xentek-ca/MSP-Integrations-and-Automations">MSP Integrations and Automations</a><span class="url">github.com/xentek-ca/MSP-Integrations-and-Automations</span></div>
         <p>An open catalog of production automation patterns across PSA, RMM, Microsoft 365, security, licensing and Azure. Each pattern has a 13-field card covering trigger, flow, outcome and known gotchas, and can be built in Rewst, n8n, Power Automate or code.</p>
       </li>
-      <li>
-        <a class="name" href="https://github.com/xentek-ca/NinjaOneLogger">NinjaOneLogger</a><span class="url">github.com/xentek-ca/NinjaOneLogger</span>
+      <li class="reveal">
+        <span class="badge-ico" aria-hidden="true"><svg class="ico" viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h13"/></svg></span>
+        <div><a class="name" href="https://github.com/xentek-ca/NinjaOneLogger">NinjaOneLogger</a><span class="url">github.com/xentek-ca/NinjaOneLogger</span></div>
         <p>An open-source client that ships structured NDJSON telemetry out of NinjaOne scripts through short-lived, write-only upload URLs, so no webhook secret ever sits on an endpoint.</p>
       </li>
-      <li>
-        <a class="name" href="https://research.xentek.ca/">Line-of-business automation survey</a> <span class="dates">(August 2026)</span><span class="url">research.xentek.ca</span>
+      <li class="reveal">
+        <span class="badge-ico" aria-hidden="true"><svg class="ico" viewBox="0 0 24 24"><path d="M4 20V11M10 20V5M16 20v-6M3 20h18"/></svg></span>
+        <div><a class="name" href="https://research.xentek.ca/">Line-of-business automation survey</a> <span class="when">(August 2026)</span><span class="url">research.xentek.ca</span></div>
         <p>Traces repetitive work in the 10 most-used desktop applications across managed client environments to vendor-documented integration points. It identifies 50 automation opportunities, 45 rated high impact, and 7 small builds to start with.</p>
       </li>
     </ul>
   </section>
 
   <section aria-labelledby="h-expertise">
-    <h2 id="h-expertise">Core expertise</h2>
-    <ul class="plain expertise">
-      <li><strong>MSP automation design:</strong> retry-safe workflows in n8n and Rewst that write failures back to the PSA ticket instead of leaving work half-done.</li>
-      <li><strong>Kubernetes and containers:</strong> production clusters on AKS, EKS and self-managed Kubernetes, deployed with Helm and GitOps; Docker image builds and registries.</li>
-      <li><strong>PSA and RMM integration:</strong> ConnectWise PSA intake, company mapping, deduplication, agreements and status flows; NinjaOne organizations, policies and scripting.</li>
-      <li><strong>Microsoft 365 and identity:</strong> user lifecycle through Graph, Entra ID and Intune; Conditional Access and anti-spoofing hardening; GDAP, NCE and Partner Center for multi-tenant licensing.</li>
-      <li><strong>Migrations and continuity:</strong> cross-tenant and hybrid Microsoft 365 moves, Citrix to Azure Virtual Desktop, firewall cutovers to FortiGate, Datto BCDR.</li>
-      <li><strong>Security operations:</strong> Huntress and SentinelOne alert enrichment, deduplication and routing into the PSA.</li>
-      <li><strong>Azure and platform engineering:</strong> landing zones, AVD and cost optimization; self-hosted n8n on Azure Container Apps behind FortiGate, with SSO/SAML, geo-fenced access and centralized logging.</li>
-      <li><strong>Linux, DevOps and SRE:</strong> RHEL-family and Ubuntu/Debian administration; infrastructure as code in Terraform, Bicep/ARM, CloudFormation/CDK and Ansible; CI/CD in GitHub Actions, Azure DevOps, GitLab CI and Jenkins; Prometheus and Grafana observability.</li>
-      <li><strong>AI infrastructure:</strong> retrieval-augmented generation and semantic search on Azure AI Search and Azure OpenAI; LLM-assisted parsing and classification inside automation pipelines; contact-center voice agents on Amazon Connect and ElevenLabs.</li>
+    <h2 id="h-expertise" class="reveal">Core expertise</h2>
+    <ul class="plain expertise" data-stagger>
+      <li class="reveal"><strong>MSP automation design:</strong> retry-safe workflows in n8n and Rewst that write failures back to the PSA ticket instead of leaving work half-done.</li>
+      <li class="reveal"><strong>Kubernetes and containers:</strong> production clusters on AKS, EKS and self-managed Kubernetes, deployed with Helm and GitOps; Docker image builds and registries.</li>
+      <li class="reveal"><strong>PSA and RMM integration:</strong> ConnectWise PSA intake, company mapping, deduplication, agreements and status flows; NinjaOne organizations, policies and scripting.</li>
+      <li class="reveal"><strong>Microsoft 365 and identity:</strong> user lifecycle through Graph, Entra ID and Intune; Conditional Access and anti-spoofing hardening; GDAP, NCE and Partner Center for multi-tenant licensing.</li>
+      <li class="reveal"><strong>Migrations and continuity:</strong> cross-tenant and hybrid Microsoft 365 moves, Citrix to Azure Virtual Desktop, firewall cutovers to FortiGate, Datto BCDR.</li>
+      <li class="reveal"><strong>Security operations:</strong> Huntress and SentinelOne alert enrichment, deduplication and routing into the PSA.</li>
+      <li class="reveal"><strong>Azure and platform engineering:</strong> landing zones, AVD and cost optimization; self-hosted n8n on Azure Container Apps behind FortiGate, with SSO/SAML, geo-fenced access and centralized logging.</li>
+      <li class="reveal"><strong>Linux, DevOps and SRE:</strong> RHEL-family and Ubuntu/Debian administration; infrastructure as code in Terraform, Bicep/ARM, CloudFormation/CDK and Ansible; CI/CD in GitHub Actions, Azure DevOps, GitLab CI and Jenkins; Prometheus and Grafana observability.</li>
+      <li class="reveal"><strong>AI infrastructure:</strong> retrieval-augmented generation and semantic search on Azure AI Search and Azure OpenAI; LLM-assisted parsing and classification inside automation pipelines; contact-center voice agents on Amazon Connect and ElevenLabs.</li>
     </ul>
   </section>
 
   <section aria-labelledby="h-exp">
-    <h2 id="h-exp">Experience</h2>
+    <h2 id="h-exp" class="reveal">Experience</h2>
+    <div class="timeline">
 
-    <article class="role">
-      <div class="role-head">
-        <div><h3>Founder &amp; Principal Consultant</h3><div class="org">Xentek · Halifax, NS</div></div>
-        <span class="dates">Nov 2018 – Present</span>
-      </div>
-      <ul class="bullets">
-        <li>Built a 15-person team delivering white-label managed services and automation for MSPs; currently subcontractor to two US MSPs.</li>
-        <li>Architected and operate an integrated MSP platform spanning Microsoft 365, Entra ID, Azure, ConnectWise PSA, NinjaOne, SentinelOne, Huntress, Rewst and Datto BCDR.</li>
-        <li>Led migrations including Citrix to Azure Virtual Desktop, Exchange hybrid decommissioning, cross-tenant Microsoft 365 moves and OPNsense-to-FortiGate firewall cutovers.</li>
-        <li>Designed and deployed production AI infrastructure: retrieval-augmented generation and semantic search on Azure AI Search and Azure OpenAI.</li>
-        <li>Ran Rewst in production from January 2025, then re-platformed to self-hosted n8n on Azure Container Apps behind FortiGate, with SSO/SAML, geo-fenced developer access and logging to Azure Log Analytics.</li>
-        <li>Led Xentek's SOC 2 Type 2 attestation.</li>
-      </ul>
-    </article>
+      <article class="role current reveal">
+        <div class="role-head">
+          <div><h3>Founder &amp; Principal Consultant</h3><div class="org">Xentek · Halifax, NS</div></div>
+          <span class="dates">Nov 2018 – Present</span>
+        </div>
+        <ul class="bullets">
+          <li>Built a 15-person team delivering white-label managed services and automation for MSPs; currently subcontractor to two US MSPs.</li>
+          <li>Architected and operate an integrated MSP platform spanning Microsoft 365, Entra ID, Azure, ConnectWise PSA, NinjaOne, SentinelOne, Huntress, Rewst and Datto BCDR.</li>
+          <li>Led migrations including Citrix to Azure Virtual Desktop, Exchange hybrid decommissioning, cross-tenant Microsoft 365 moves and OPNsense-to-FortiGate firewall cutovers.</li>
+          <li>Designed and deployed production AI infrastructure: retrieval-augmented generation and semantic search on Azure AI Search and Azure OpenAI.</li>
+          <li>Ran Rewst in production from January 2025, then re-platformed to self-hosted n8n on Azure Container Apps behind FortiGate, with SSO/SAML, geo-fenced developer access and logging to Azure Log Analytics.</li>
+          <li>Led Xentek's SOC 2 Type 2 attestation.</li>
+        </ul>
+      </article>
 
-    <article class="role">
-      <div class="role-head">
-        <div><h3>SRE Lead</h3><div class="org">Global travel platform (name withheld under NDA)</div></div>
-        <span class="dates">Jan 2022 – May 2023</span>
-      </div>
-      <ul class="bullets">
-        <li>Led a five-person, globally distributed SRE team for a high-traffic travel platform.</li>
-        <li>Traced recurring outages to heavy SQL load, identified the queries driving it, and built read replicas to distribute read traffic.</li>
-        <li>Improved overall uptime and helped the platform meet its 99.99% availability SLA.</li>
-      </ul>
-    </article>
+      <article class="role reveal">
+        <div class="role-head">
+          <div><h3>SRE Lead</h3><div class="org">Global travel platform (name withheld under NDA)</div></div>
+          <span class="dates">Jan 2022 – May 2023</span>
+        </div>
+        <ul class="bullets">
+          <li>Led a five-person, globally distributed SRE team for a high-traffic travel platform.</li>
+          <li>Traced recurring outages to heavy SQL load, identified the queries driving it, and built read replicas to distribute read traffic.</li>
+          <li>Improved overall uptime and helped the platform meet its 99.99% availability SLA.</li>
+        </ul>
+      </article>
 
-    <article class="role">
-      <div class="role-head">
-        <div><h3>Senior Solution Architect, Enterprise Managed Services and IT Transformation</h3><div class="org">Calance · Orange County, CA</div></div>
-        <span class="dates">Apr 2015 – Oct 2018</span>
-      </div>
-      <ul class="bullets">
-        <li>Led the cloud program end to end, covering IaaS, PaaS and application architecture, for enterprise clients in automotive, banking, healthcare and retail.</li>
-        <li>Planned and executed public and private cloud migrations with zero operational disruption, owning transition plans, KPIs, SLAs and uptime targets.</li>
-        <li>Set reference architectures and standards for reliability, scalability, security and performance, with disaster recovery and high availability built in by default.</li>
-        <li>Moved client product lines off legacy client-server systems onto a modern application platform.</li>
-        <li>Presented architecture and application-lifecycle roadmaps to CIOs, CTOs and CFOs to secure budget and resourcing.</li>
-      </ul>
-    </article>
+      <article class="role reveal">
+        <div class="role-head">
+          <div><h3>Senior Solution Architect, Enterprise Managed Services and IT Transformation</h3><div class="org">Calance · Orange County, CA</div></div>
+          <span class="dates">Apr 2015 – Oct 2018</span>
+        </div>
+        <ul class="bullets">
+          <li>Led the cloud program end to end, covering IaaS, PaaS and application architecture, for enterprise clients in automotive, banking, healthcare and retail.</li>
+          <li>Planned and executed public and private cloud migrations with zero operational disruption, owning transition plans, KPIs, SLAs and uptime targets.</li>
+          <li>Set reference architectures and standards for reliability, scalability, security and performance, with disaster recovery and high availability built in by default.</li>
+          <li>Moved client product lines off legacy client-server systems onto a modern application platform.</li>
+          <li>Presented architecture and application-lifecycle roadmaps to CIOs, CTOs and CFOs to secure budget and resourcing.</li>
+        </ul>
+      </article>
 
-    <article class="role">
-      <div class="role-head">
-        <div><h3>Solution Architect</h3><div class="org">Calance · Greater Delhi Area</div></div>
-        <span class="dates">Jul 2013 – Mar 2015</span>
-      </div>
-      <ul class="bullets">
-        <li>Designed and maintained automation and configuration management across production R&amp;D infrastructure.</li>
-        <li>Owned security requirements, annual budgets and the high-availability and disaster-recovery plan for AWS projects.</li>
-        <li>Delivered customer implementations end to end and integrated third-party products into client environments.</li>
-      </ul>
-    </article>
+      <article class="role reveal">
+        <div class="role-head">
+          <div><h3>Solution Architect</h3><div class="org">Calance · Greater Delhi Area</div></div>
+          <span class="dates">Jul 2013 – Mar 2015</span>
+        </div>
+        <ul class="bullets">
+          <li>Designed and maintained automation and configuration management across production R&amp;D infrastructure.</li>
+          <li>Owned security requirements, annual budgets and the high-availability and disaster-recovery plan for AWS projects.</li>
+          <li>Delivered customer implementations end to end and integrated third-party products into client environments.</li>
+        </ul>
+      </article>
 
-    <article class="role">
-      <div class="role-head">
-        <div><h3>Consultant, Product Management and Technical Excellence Groups</h3><div class="org">HCL Technologies, Infrastructure Services · Noida, India</div></div>
-        <span class="dates">Dec 2007 – Jun 2013</span>
-      </div>
-      <ul class="bullets">
-        <li>Partnered with sales on datacenter transformation, migration and managed-service opportunities, from customer discovery to final solution design.</li>
-        <li>Scoped sizing, effort and timelines with delivery and project managers for new and existing enterprise clients.</li>
-        <li>Designed infrastructure solutions in the architecture group, matched to customer needs to grow revenue.</li>
-      </ul>
-    </article>
+      <article class="role reveal">
+        <div class="role-head">
+          <div><h3>Consultant, Product Management and Technical Excellence Groups</h3><div class="org">HCL Technologies, Infrastructure Services · Noida, India</div></div>
+          <span class="dates">Dec 2007 – Jun 2013</span>
+        </div>
+        <ul class="bullets">
+          <li>Partnered with sales on datacenter transformation, migration and managed-service opportunities, from customer discovery to final solution design.</li>
+          <li>Scoped sizing, effort and timelines with delivery and project managers for new and existing enterprise clients.</li>
+          <li>Designed infrastructure solutions in the architecture group, matched to customer needs to grow revenue.</li>
+        </ul>
+      </article>
+
+    </div>
   </section>
 
   <section aria-labelledby="h-builds">
-    <h2 id="h-builds">Selected builds</h2>
-    <ul class="plain builds">
-      <li><strong>User onboarding and offboarding:</strong> a PSA ticket provisions the Entra user, license, groups, RMM organization and policy, then posts a checklist back to the ticket, cutting provisioning from 2 days to 10 minutes, not counting the human approval step. Graph throttling, expired GDAP tokens and RMM auth errors land on the ticket with the raw error, never as a half-provisioned user.</li>
-      <li><strong>Three-way license reconciliation:</strong> compares the Pax8 invoice, what is assigned in each tenant and what the PSA bills. It catches NCE mid-term changes, lapsed GDAP and stale agreement quantities before invoicing goes out.</li>
-      <li><strong>Security alert enrichment:</strong> Huntress and SentinelOne alerts are enriched with sign-in data, deduplicated and routed to the right PSA company, so a technician gets one ticket with the context to act.</li>
-      <li><strong>Ticket triage engine:</strong> classifies, prioritizes and routes ConnectWise tickets to the right queue, then escalates on SLA rules.</li>
+    <h2 id="h-builds" class="reveal">Selected builds</h2>
+    <ul class="plain builds" data-stagger>
+      <li class="reveal"><strong>User onboarding and offboarding:</strong> a PSA ticket provisions the Entra user, license, groups, RMM organization and policy, then posts a checklist back to the ticket, cutting provisioning from 2 days to 10 minutes, not counting the human approval step. Graph throttling, expired GDAP tokens and RMM auth errors land on the ticket with the raw error, never as a half-provisioned user.</li>
+      <li class="reveal"><strong>Three-way license reconciliation:</strong> compares the Pax8 invoice, what is assigned in each tenant and what the PSA bills. It catches NCE mid-term changes, lapsed GDAP and stale agreement quantities before invoicing goes out.</li>
+      <li class="reveal"><strong>Security alert enrichment:</strong> Huntress and SentinelOne alerts are enriched with sign-in data, deduplicated and routed to the right PSA company, so a technician gets one ticket with the context to act.</li>
+      <li class="reveal"><strong>Ticket triage engine:</strong> classifies, prioritizes and routes ConnectWise tickets to the right queue, then escalates on SLA rules.</li>
     </ul>
   </section>
 
   <section aria-labelledby="h-tools">
-    <h2 id="h-tools">Platforms and tools</h2>
-    <dl class="tools">
+    <h2 id="h-tools" class="reveal">Platforms and tools</h2>
+    <dl class="tools reveal">
       <dt>Automation</dt>
       <dd class="chips"><span class="chip">n8n (self-hosted on Azure Container Apps)</span><span class="chip">Rewst</span><span class="chip">Power Automate</span><span class="chip">PowerShell</span><span class="chip">Python</span><span class="chip">REST and GraphQL APIs</span><span class="chip">Webhooks</span><span class="chip">JSON and NDJSON</span><span class="chip">OAuth 2.0 and SAML SSO</span><span class="chip">Microsoft Graph</span><span class="chip">Retry-safe workflow patterns</span><span class="chip">PSA ticket write-back</span><span class="chip">NinjaOne scripting</span><span class="chip">NinjaOneLogger</span></dd>
       <dt>PSA and RMM</dt>
@@ -389,8 +574,8 @@
   </section>
 
   <section aria-labelledby="h-edu">
-    <h2 id="h-edu">Education</h2>
-    <div class="role-head">
+    <h2 id="h-edu" class="reveal">Education</h2>
+    <div class="role-head reveal">
       <div><h3>Bachelor's degree, Mathematics</h3><div class="org">Lucknow University</div></div>
       <span class="dates">2003 – 2006</span>
     </div>
@@ -398,6 +583,172 @@
 
   <footer>References available on request.</footer>
 
-</div>
+</main>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  try {
+    var reduce = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+    var canObserve = 'IntersectionObserver' in window;
+
+    // Stagger siblings inside [data-stagger] groups (capped so long lists don't lag).
+    document.querySelectorAll('[data-stagger]').forEach(function (group) {
+      Array.prototype.forEach.call(group.children, function (el, i) {
+        el.style.setProperty('--d', Math.min(i, 8) * 70 + 'ms');
+      });
+    });
+
+    // ---- Count-up numbers ----
+    function fmt(el, v) {
+      var d = +(el.dataset.decimals || 0);
+      el.textContent = (el.dataset.prefix || '') +
+        v.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d }) +
+        (el.dataset.suffix || '');
+    }
+    function finish(el) { el.dataset.done = '1'; fmt(el, parseFloat(el.dataset.count)); }
+    function countUp(el) {
+      if (el.dataset.done) return;
+      el.dataset.done = '1';
+      var end = parseFloat(el.dataset.count), start = null, dur = 1400;
+      function step(t) {
+        if (start === null) start = t;
+        var p = Math.min((t - start) / dur, 1), eased = 1 - Math.pow(1 - p, 3);
+        fmt(el, end * eased);
+        if (p < 1) requestAnimationFrame(step); else fmt(el, end);
+      }
+      requestAnimationFrame(step);
+    }
+
+    // ---- Scroll reveal ----
+    var reveals = document.querySelectorAll('.reveal');
+    function show(el) {
+      el.classList.add('in');
+      if (!reduce) el.querySelectorAll('[data-count]').forEach(countUp);
+    }
+    if (reduce || !canObserve) {
+      reveals.forEach(function (el) { el.classList.add('in'); });
+    } else {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { show(e.target); io.unobserve(e.target); }
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+      reveals.forEach(function (el) { io.observe(el); });
+    }
+
+    // Printing mid-scroll must never capture hidden sections or half-counted numbers.
+    window.addEventListener('beforeprint', function () {
+      reveals.forEach(function (el) { el.classList.add('in'); });
+      document.querySelectorAll('[data-count]').forEach(finish);
+    });
+
+    // ---- Scroll progress bar (transform only, one update per frame) ----
+    var bar = document.querySelector('.progress'), ticking = false;
+    function updateBar() {
+      var max = root.scrollHeight - root.clientHeight;
+      bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(window.scrollY / max, 1) : 0) + ')';
+      ticking = false;
+    }
+    if (bar) {
+      window.addEventListener('scroll', function () {
+        if (!ticking) { ticking = true; requestAnimationFrame(updateBar); }
+      }, { passive: true });
+      updateBar();
+    }
+
+    // ---- Hero network: drifting nodes, links by proximity, pulses travelling along links ----
+    var hero = document.querySelector('.hero'), canvas = hero && hero.querySelector('.net');
+    if (canvas && canvas.getContext) {
+      var ctx = canvas.getContext('2d'), dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var W = 0, H = 0, nodes = [], pulses = [], maxD = 140, running = false, raf = 0, last = 0, sinceSpawn = 0;
+
+      var init = function () {
+        var r = hero.getBoundingClientRect();
+        W = r.width; H = r.height;
+        canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        maxD = W < 600 ? 105 : 140;
+        var n = Math.max(14, Math.min(64, Math.round(W * H / 13000))); // density scales with area
+        nodes = [];
+        for (var i = 0; i < n; i++) {
+          nodes.push({ x: Math.random() * W, y: Math.random() * H,
+                       vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3,
+                       r: 1.1 + Math.random() * 1.4 });
+        }
+        pulses = [];
+      };
+
+      var draw = function (dt) {
+        ctx.clearRect(0, 0, W, H);
+        var i, j, a, b, dx, dy, d, links = [], max2 = maxD * maxD, k = dt / 16;
+        for (i = 0; i < nodes.length; i++) {
+          a = nodes[i];
+          a.x += a.vx * k; a.y += a.vy * k;
+          if (a.x < 0 || a.x > W) a.vx *= -1;
+          if (a.y < 0 || a.y > H) a.vy *= -1;
+        }
+        ctx.lineWidth = 1;
+        for (i = 0; i < nodes.length; i++) {
+          for (j = i + 1; j < nodes.length; j++) {
+            a = nodes[i]; b = nodes[j]; dx = a.x - b.x; dy = a.y - b.y; d = dx * dx + dy * dy;
+            if (d < max2) {
+              ctx.strokeStyle = 'rgba(150,205,255,' + ((1 - Math.sqrt(d) / maxD) * 0.32).toFixed(3) + ')';
+              ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+              links.push([a, b]);
+            }
+          }
+        }
+        ctx.fillStyle = 'rgba(185,225,255,0.8)';
+        for (i = 0; i < nodes.length; i++) {
+          a = nodes[i]; ctx.beginPath(); ctx.arc(a.x, a.y, a.r, 0, 6.2832); ctx.fill();
+        }
+        if (!dt) return;
+        // Spawn a pulse on a random live link roughly every 450ms, at most 7 in flight.
+        sinceSpawn += dt;
+        if (sinceSpawn > 450 && links.length && pulses.length < 7) {
+          sinceSpawn = 0;
+          var l = links[(Math.random() * links.length) | 0];
+          pulses.push({ a: l[0], b: l[1], t: 0 });
+        }
+        for (i = pulses.length - 1; i >= 0; i--) {
+          var p = pulses[i];
+          p.t += dt / 1400;
+          if (p.t >= 1) { pulses.splice(i, 1); continue; }
+          var x = p.a.x + (p.b.x - p.a.x) * p.t, y = p.a.y + (p.b.y - p.a.y) * p.t;
+          ctx.fillStyle = 'rgba(127,240,255,0.16)'; ctx.beginPath(); ctx.arc(x, y, 6, 0, 6.2832); ctx.fill();
+          ctx.fillStyle = 'rgba(200,250,255,0.95)'; ctx.beginPath(); ctx.arc(x, y, 1.9, 0, 6.2832); ctx.fill();
+        }
+      };
+
+      var loop = function (t) {
+        var dt = last ? Math.min(t - last, 50) : 16; // clamp so a background tab doesn't teleport nodes
+        last = t; draw(dt);
+        if (running) raf = requestAnimationFrame(loop);
+      };
+      var start = function () { if (!running) { running = true; last = 0; raf = requestAnimationFrame(loop); } };
+      var stop = function () { running = false; cancelAnimationFrame(raf); };
+
+      init();
+      if (reduce) {
+        draw(0); // one static frame, no motion
+      } else {
+        // Only animate while the hero is on screen.
+        if (canObserve) {
+          new IntersectionObserver(function (e) { e[0].isIntersecting ? start() : stop(); }).observe(hero);
+        } else { start(); }
+      }
+      var resizeTimer;
+      window.addEventListener('resize', function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function () { init(); if (!running) draw(0); }, 150);
+      });
+    }
+  } catch (err) {
+    // Fail open: if anything above breaks, show all content without motion.
+    root.classList.remove('js');
+  }
+})();
+</script>
 </body>
 </html>
